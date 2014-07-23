@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1">
+    <meta name="viewport"               content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="author"                 content="Unicorn-IT (www.unicorn-it.de)" />
+
+    <title>JavaScript Hole</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div id="container" class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <img class="img-responsive" src="images/image_1920x672.jpg" alt="some">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.Spot.js"></script>
+
+<script>
+
+    var spot;
+    $(function() {
+
+        spot = $('#container').Spot({
+            radius: 100,
+            gradient: 1,
+            spot_auto_val: 6.5,
+            spot_luminosity: 3,
+            spot_color: '#7a6b67',
+            spot_alpha: 1,
+            spot_switch: false
+        });
+
+        //spot.SpotOn(3000);
+        window.setTimeout(function() {
+            spot.SpotOn(3000);
+        }, 2000);
+    });
+
+</script>
+
+</body>
+</html>
