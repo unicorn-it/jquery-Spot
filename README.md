@@ -17,8 +17,7 @@ $(function() {
         radius: 100,
         gradient: 1,
         spot_color: '#7a6b67',
-        spot_alpha: 1,
-        spot_switch: false
+        spot_alpha: 1
     });
 ```
 
@@ -32,19 +31,19 @@ Defines initial size of spot in pixel.
 
 ### gradient
 
-Defines in pixel the gradient of the spot.
+Defines the gradient of the spot in percentage.
 
-### spot_color
+### color
 
 Defines the color of spot and overlay.
 
-### spot_alpha
+### alpha
 
-Defines the opacity of the spot.
+Defines the alpha level of spot.
 
-### spot_switch
+### mouseEnabled
 
-If enabled customer can click on spot and it will disappear directly.
+If true Spot will follow mousemove on element.
 
 ## Methods
 

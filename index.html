@@ -31,18 +31,14 @@
     $(function() {
 
         spot = $('#container').Spot({
-            radius: 100,
-            gradient: 1,
-            spot_auto_val: 6.5,
-            spot_luminosity: 3,
-            spot_color: '#000',
-            spot_switch: false
+            radius: 50,
+            gradient: 0,
+            color: '#7a6b67'
         });
 
-        //spot.SpotOn(3000);
         window.setTimeout(function() {
-            //spot.SpotOn(3000);
-        }, 2000);
+            spot.SpotOn(3000);
+        }, 3000);
     });
 
 </script>

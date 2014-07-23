@@ -31,16 +31,13 @@
         base.init = function(){
             base.options = $.extend({},$.Spot.defaultOptions, options);
 
-            var hex = base.options.spot_color.replace(/#/, '0x');
+            var hex = base.options.color.replace(/#/, '0x');
             var r = hex >> 16;
             var g = (hex & 0x00FF00) >> 8;
             var b = hex & 0x0000FF;
-            var a = base.options.spot_alpha;
+            var a = base.options.alpha;
             var sr = base.options.radius;
             var gradient = base.options.gradient;
-            var f = base.options.spot_auto_val;
-            var l = base.options.spot_luminosity;
-            if(l <= 1.004) { l = 3; }
 
             var paddingLeft = parseInt(base.$el.css('padding-left'));
             var paddingTop = parseInt(base.$el.css('padding-top'));
@@ -104,12 +101,12 @@
                 'width' : sr*2,
                 'height' : sr*2,
                 'z-index' : 999,
-                'background': '-moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px, rgba(0,0,0,0) '+(sr/2)+'px, rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px, rgba('+r+','+g+','+b+',1) '+sr+'px)',
-                'background': '-webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0px,rgba(0,0,0,0)), color-stop('+(sr/2)+'px,rgba(0,0,0,0)), color-stop('+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1)), color-stop('+sr+'px,rgba('+r+','+g+','+b+',1)))',
-                'background': '-webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
-                'background': '-o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
-                'background': '-ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
-                'background': 'radial-gradient(ellipse at center,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+','+a+') '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+','+a+') '+sr+'px)',
+                'background': '-moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba('+r+','+g+','+b+',1) '+(50+gradient)+'%, rgba('+r+','+g+','+b+',1) 100%)',
+                'background': '-webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0)), color-stop('+(50+gradient)+'%,rgba(0,0,0,0)), color-stop(50%,rgba('+r+','+g+','+b+',1)), color-stop(100%,rgba('+r+','+g+','+b+',1)))',
+                'background': '-webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) '+(50+gradient)+'%,rgba('+r+','+g+','+b+',1) 100%)',
+                'background': '-o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) '+(50+gradient)+'%,rgba('+r+','+g+','+b+',1) 100%)',
+                'background': '-ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) '+(50+gradient)+'%,rgba('+r+','+g+','+b+',1) 100%)',
+                'background': 'radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) '+(50+gradient)+'%,rgba('+r+','+g+','+b+',1) 100%)',
                 'filter': 'progid:DXImageTransform.Microsoft.gradient( startColorstr="#00000000", endColorstr="#000000",GradientType=1 )'
             });
 
@@ -123,28 +120,9 @@
             });
 
             if(base.options.mouseEnabled) {
-                $('body').mousemove( function(e){
-                    var l = e.pageX - left - sr;
-                    var t = e.pageY - top - sr;
-                    base.spotLight.css({'display' : 'block', 'left' : l, 'top' : t});
-                    base.spotMask.css({'left' : l, 'top' : t});
-                    base.spotImage.css({'margin-left' : -l, 'margin-top' : -t});
+                base.shading.mousemove(function(event) {
+                    base.move(event.pageX, event.pageY);
                 });
-            }
-
-            if(base.options.spot_switch) {
-                $('#'+shading).toggle(
-                    function () {
-                        $(this).animate({'opacity' : 0}, 600).css('cursor', 'pointer');
-                    },
-                    function () {
-                        if($.browser.msie){
-                            $(this).animate({'opacity' : a}, 600).css('cursor', 'none');
-                        } else {
-                            $(this).animate({'opacity' : 1}, 600).css('cursor', 'none');
-                        }
-                    }
-                );
             }
         };
 
@@ -172,8 +150,6 @@
                 base.spotMask.remove();
                 base.spotImage.unwrap();
                 base.spotImage.unwrap();
-                console.log(base.spotImage);
-                console.log(base.$el);
                 base.spotImage.removeAttr('style');
             });
         };
@@ -221,20 +197,14 @@
                 return;
             }
 
-            //var l = e.pageX - left - sr;
-            //var t = e.pageY - top - sr;
-
             var curWidth = base.spotMask.width();
 
             var l = x-curWidth/2;
             var t = y-curWidth/2;
 
-            console.log(l);
-            console.log(t);
-
             base.spotLight.css({'display' : 'block', 'left' : l, 'top' : t});
             base.spotMask.css({'left' : l, 'top' : t});
-            base.spotImage.css({'margin-left' : -l, 'margin-top' : -t});
+            base.spotImage.css({'left' : -l, 'top' : -t});
         };
 
         base.scale = function(scale) {
@@ -247,11 +217,8 @@
     $.Spot.defaultOptions = {
         radius: 100,
         gradient: 1,
-        spot_auto_val: 6.5,
-        spot_luminosity: 3,
-        spot_color: '#000000',
-        spot_alpha: 1,
-        spot_switch: 1,
+        color: '#000000',
+        alpha: 1,
         mouseEnabled: false
     };
 
