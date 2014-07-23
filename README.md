@@ -1,5 +1,9 @@
 # jQuery Plugin - Spot Effect
 
+## Example
+
+![Spot Effect](/images/example.jpg)
+
 ## Usage
 
 1. Download the jquery.Spot.js file --> /js/jquery.Spot.js
