@@ -2,7 +2,7 @@
 
 ## Example
 
-![Spot Effect](/images/example.jpg)
+![Spot Effect](/images/example.png)
 
 ## Usage
 
