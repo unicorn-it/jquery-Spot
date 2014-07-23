@@ -14,10 +14,10 @@
 
 <body>
 
-<div id="container" class="container-fluid">
+<div id="container" class="container">
     <div class="row">
-        <div class="col-md-12">
-            <img class="img-responsive" src="images/image_1920x672.jpg" alt="some">
+        <div class="col-md-12 text-center">
+            <img class="img-responsive text-center" src="images/image.jpg" alt="some">
         </div>
     </div>
 </div>
@@ -31,9 +31,9 @@
     $(function() {
 
         spot = $('#container').Spot({
-            radius: 50,
-            gradient: 0,
-            color: '#7a6b67'
+            radius: 150,
+            gradient: 10,
+            color: '#111'
         });
 
         window.setTimeout(function() {
