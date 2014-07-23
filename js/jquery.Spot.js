@@ -37,6 +37,7 @@
             var b = hex & 0x0000FF;
             var a = base.options.spot_alpha;
             var sr = base.options.radius;
+            var gradient = base.options.gradient;
             var f = base.options.spot_auto_val;
             var l = base.options.spot_luminosity;
             if(l <= 1.004) { l = 3; }
@@ -103,12 +104,12 @@
                 'width' : sr*2,
                 'height' : sr*2,
                 'z-index' : 999,
-                'background': '-moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba('+r+','+g+','+b+',1) 50%, rgba('+r+','+g+','+b+',1) 100%)',
-                'background': '-webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0)), color-stop(50%,rgba(0,0,0,0)), color-stop(50%,rgba('+r+','+g+','+b+',1)), color-stop(100%,rgba('+r+','+g+','+b+',1)))',
-                'background': '-webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) 50%,rgba('+r+','+g+','+b+',1) 100%)',
-                'background': '-o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) 50%,rgba('+r+','+g+','+b+',1) 100%)',
-                'background': '-ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) 50%,rgba('+r+','+g+','+b+',1) 100%)',
-                'background': 'radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba('+r+','+g+','+b+',1) 50%,rgba('+r+','+g+','+b+',1) 100%)',
+                'background': '-moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px, rgba(0,0,0,0) '+(sr/2)+'px, rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px, rgba('+r+','+g+','+b+',1) '+sr+'px)',
+                'background': '-webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0px,rgba(0,0,0,0)), color-stop('+(sr/2)+'px,rgba(0,0,0,0)), color-stop('+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1)), color-stop('+sr+'px,rgba('+r+','+g+','+b+',1)))',
+                'background': '-webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
+                'background': '-o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
+                'background': '-ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+',1) '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+',1) '+sr+'px)',
+                'background': 'radial-gradient(ellipse at center,  rgba(0,0,0,0) 0px,rgba(0,0,0,0) '+(sr/2)+'px,rgba('+r+','+g+','+b+','+a+') '+(sr/2+gradient)+'px,rgba('+r+','+g+','+b+','+a+') '+sr+'px)',
                 'filter': 'progid:DXImageTransform.Microsoft.gradient( startColorstr="#00000000", endColorstr="#000000",GradientType=1 )'
             });
 
@@ -249,7 +250,7 @@
         spot_auto_val: 6.5,
         spot_luminosity: 3,
         spot_color: '#000000',
-        spot_alpha: 0.9,
+        spot_alpha: 1,
         spot_switch: 1,
         mouseEnabled: false
     };
